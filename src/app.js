@@ -8,6 +8,14 @@ const app = express();
 app.use(morgan("dev"));
 app.use(helmet()); // protect sensitive information
 app.use(compression()); // used to handle larger data to the client in payload
+
+// the browser will get into err middleware first. then next keyword will set middlewae to route the function below
+app.use((req,res, next) => {
+    next();
+    return res.status(404).json({
+        error: "Not found page"
+    })
+})
 //init db
 
 //init routes
